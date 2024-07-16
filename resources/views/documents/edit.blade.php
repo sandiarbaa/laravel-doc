@@ -34,6 +34,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-warning">Perbarui</button>
+                <a href="{{ route('documents.index') }}" class="btn btn-secondary">Kembali</a>
             </form>
         </div>
     </div>
