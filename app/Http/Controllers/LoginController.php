@@ -24,7 +24,7 @@ class LoginController extends Controller
         // jika percobaan login yg dilakukan credentials berhasil, maka arahkan ke sebuah route
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/mobils');
+            return redirect()->intended('/documents');
         }
 
         return back()->with('loginError', 'Login Failed!');

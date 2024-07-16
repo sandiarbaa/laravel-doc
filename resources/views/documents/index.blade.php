@@ -3,8 +3,8 @@
 @section('content')
     <div class="row">
         <div class="col-8 col-md-10">
-            <h2>Daftar Mobil</h2>
-            <a href="{{ route('mobils.create') }}" class="btn btn-primary mb-3">Tambah Mobil</a>
+            <h2>Daftar Dokumen</h2>
+            <a href="{{ route('documents.create') }}" class="btn btn-primary mb-3">Tambah Dokumen</a>
             @if (session('addDataSuccess'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <p>{{ session('addDataSuccess') }}</p>
@@ -23,41 +23,39 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Merk</th>
-                        <th>Model</th>
-                        <th>Mulai Booking</th>
-                        <th>Selesai Booking</th>
+                        <th>Judul</th>
+                        <th>Deskripsi</th>
+                        <th>File</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if($mobils->count() > 0)
-                        @foreach ($mobils as $mobil)
+                    @if($documents->count() > 0)
+                        @foreach ($documents as $document)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $mobil->merk }}</td>
-                                <td>{{ $mobil->model }}</td>
-                                <td>{{ $mobil->start_booking }}</td>
-                                <td>{{ $mobil->finish_booking }}</td>
+                                <td>{{ $document->title }}</td>
+                                <td>{{ $document->description }}</td>
+                                <td><a href="{{ asset('storage/' . $document->file_path) }}" target="_blank">Lihat File</a></td>
                                 <td>
-                                    <a href="{{ route('mobils.show', $mobil->id) }}" class="btn btn-info">Lihat</a>
-                                    <a href="{{ route('mobils.edit', $mobil->id) }}" class="btn btn-warning">Edit</a>
-                                    <form action="{{ route('mobils.destroy', $mobil->id) }}" method="POST" style="display: inline-block;">
+                                    <a href="{{ route('documents.show', $document->id) }}" class="btn btn-info">Lihat</a>
+                                    <a href="{{ route('documents.edit', $document->id) }}" class="btn btn-warning">Edit</a>
+                                    <form action="{{ route('documents.destroy', $document->id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus mobil ini?')">Hapus</button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus dokumen ini?')">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="6" class="text-center">Data masih kosong.</td>
+                            <td colspan="5" class="text-center">Belum ada data dokumen.</td>
                         </tr>
                     @endif
                 </tbody>
             </table>
-            {{ $mobils->links() }} {{-- Menampilkan pagination links --}}
+            {{ $documents->links() }}
         </div>
     </div>
 @endsection
